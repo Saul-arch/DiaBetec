@@ -38,7 +38,7 @@ public class AuthService {
     }
 
     private String generarToken(Users user) {
-        return jwtUtil.create(String.valueOf(user.getId()), user.getGmail());
+        return jwtUtil.create(String.valueOf(user.getId_user()), user.getGmail());
     }
 
     public String validarToken(String token){

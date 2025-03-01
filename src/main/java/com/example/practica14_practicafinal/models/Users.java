@@ -8,19 +8,19 @@ import jakarta.persistence.Table;
 @Table(name = "usuarios")
 public class Users {
     @Id
-    private int id;
+    private int id_user;
     private String nombre;
     private String apellidoM;
     private String apellidoP;
     private String gmail;
     private String password;
 
-    public int getId() {
-        return id;
+    public int getId_user() {
+        return id_user;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId_user(int id) {
+        this.id_user = id;
     }
 
     public String getNombre() {
