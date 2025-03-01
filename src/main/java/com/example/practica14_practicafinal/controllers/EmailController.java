@@ -19,7 +19,6 @@ public class EmailController {
     public void sendMesage(@RequestBody EmailDTO emailDTO) throws MessagingException {
         emailDTO.setAsunto("Registro usuario");
         emailDTO.setDestinatario(emailDTO.getDestinatario());
-
         emailService.sendEmail(emailDTO);
         System.out.println("el gmail destino es: "+emailDTO.getDestinatario());
     }
