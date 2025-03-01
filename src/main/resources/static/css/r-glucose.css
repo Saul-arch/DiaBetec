@@ -1,0 +1,39 @@
+.form-group row{
+    background: white;
+    padding: 2em;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+h2 {
+    color: #333;
+}
+label {
+    display: block;
+    margin-bottom: 0.5em;
+    text-align: left;
+    font-weight: 600;
+}
+input, textarea {
+    width: 100%;
+    padding: 0.8em;
+    margin-bottom: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+}
+button {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 0.8em;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+    width: 100%;
+}
+button:hover {
+    background-color: #0056b3;
+}

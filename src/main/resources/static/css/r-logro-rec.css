@@ -1,0 +1,36 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #F4F6F9;
+}
+.logro-card {
+    background: #ffffff;
+    border-radius: 15px;
+    padding: 20px;
+    margin: 10px 0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: transform 0.3s;
+}
+.logro-card:hover {
+    transform: scale(1.03);
+}
+.logro-icon {
+    font-size: 40px;
+    color: #4CAF50;
+    margin-right: 20px;
+}
+.logro-text {
+    flex-grow: 1;
+}
+.logro-title {
+    font-weight: 600;
+    color: #333;
+}
+.logro-status {
+    color: #4CAF50;
+}
+.pendiente {
+    color: #FF9800;
+}
