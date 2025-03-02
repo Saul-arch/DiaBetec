@@ -18,12 +18,14 @@ async function iniciarSession() {
         },
         body: JSON.stringify(datos)
     });
-    const respuesta = await request.text();
+    const respuesta = await request.json();
 
 
-    if(respuesta != 'FAIL'){
-        localStorage.token = respuesta;
+    if(respuesta[0] != 'FAIL'){
+        localStorage.token = respuesta[0];
         localStorage.gmail = datos.gmail;
+        localStorage.nombre = respuesta[1];
+        localStorage.apellidoP = respuesta[2];
         window.location.href = 'index.html'
     }else {
         alert("Usuario o contraseña son incorrectas! Vuelve a intentarlo")

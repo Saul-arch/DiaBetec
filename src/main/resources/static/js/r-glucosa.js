@@ -1,11 +1,21 @@
 async function registrarGlucosa() {
-    const rawResponse = await fetch('https://httpbin.org/post', {
+    let txtGlucosa = document.getElementById("txtglucosa");
+    let txtNotas = document.getElementById("txtnotes")
+
+
+    const rawResponse = await fetch('/medicine/addRGlucosa', {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': localStorage.token
         },
-        body: JSON.stringify({a: 1, b: 'Textual content'})
+
+        body: JSON.stringify({
+            gmail: localStorage.gmail,
+            nivelGlucosa: document.getElementById('txtglucosa').value,
+            notas: document.getElementById('txtnotes').value,
+        })
     });
     const respuesta = await rawResponse.json();
 

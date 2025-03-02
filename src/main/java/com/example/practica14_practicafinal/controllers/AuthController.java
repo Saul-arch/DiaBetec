@@ -5,6 +5,8 @@ import com.example.practica14_practicafinal.models.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(value = "/auth")
 public class AuthController {
@@ -12,7 +14,7 @@ public class AuthController {
     AuthService authService;
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String login(@RequestBody Users user) {
+    public List<String> login(@RequestBody Users user) {
         return authService.login(user.getGmail(), user.getPassword());
     }
 

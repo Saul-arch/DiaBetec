@@ -9,6 +9,7 @@ import jakarta.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -20,7 +21,10 @@ public class AuthService {
 
     @PersistenceContext
     EntityManager entityManager;
-    public String login(String correo, String password) {
+    public List<String> login(String correo, String password) {
+
+        List<String> respuesta = new ArrayList<>();
+
         String query = "From Users where gmail=:gmail";
 
         List<Users> list = entityManager.createQuery(query, Users.class)
@@ -30,11 +34,16 @@ public class AuthService {
             if (argon2.verify(list.get(0).getPassword(), password)) {
                 System.out.println("Las credenciales son correctas");
 
-                return generarToken(list.get(0));
+                respuesta.add(generarToken(list.get(0)));
+                respuesta.add(list.get(0).getNombre());
+                respuesta.add(list.get(0).getApellidoM());
+
+                return respuesta;
             }
         }
         System.out.println("Correo o contraseñas incorrectas");
-        return "FAIL";
+        respuesta.add("FAIL");
+        return respuesta;
     }
 
     private String generarToken(Users user) {

@@ -1,5 +1,6 @@
 package com.example.practica14_practicafinal.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,6 +19,7 @@ public class Glucosa {
     private String notas;
     @ManyToOne
     @JoinColumn(name = "id_user", referencedColumnName = "id_user") // Llave Foránea
+    @JsonIgnore
     private Users usuario;
 
     public int getId_glucosa() {

@@ -53,4 +53,9 @@
     e.preventDefault();
   });
 
+  function actualizarNombreBienvenida(){
+    let lblBienvenida = document.getElementById("lblBienvenida")
+    document.getElementById('lblBienvenida').outerHTML = 'Hola! ' + localStorage.nombre + ' ' + localStorage.apellidoP;
+  }
+
 })(jQuery); // End of use strict

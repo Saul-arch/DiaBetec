@@ -3,11 +3,14 @@ package com.example.practica14_practicafinal.Services;
 import com.example.practica14_practicafinal.dao.RGlucosaRepository;
 import com.example.practica14_practicafinal.dao.UsersRepository;
 import com.example.practica14_practicafinal.models.Glucosa;
+import com.example.practica14_practicafinal.models.GlucosaDTO;
 import com.example.practica14_practicafinal.models.Users;
+import com.example.practica14_practicafinal.utils.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class GlucosaService {
@@ -16,38 +19,51 @@ public class GlucosaService {
     @Autowired
     UsersRepository usersRepository;
 
-    /*public Glucosa guardarMedicionGlucosa(String gmail, double nivelGlucosa) {
-        Usuario usuario = usuarioRepository.findByGmail(gmail);
-        if (usuario == null) {
-            throw new RuntimeException("Usuario no encontrado");
+    @Autowired
+    JWTUtil jwtUtil;
+
+    public void guardarRegistroGlucosa(String token, GlucosaDTO glucosa) {
+
+        if (jwtUtil.getKey(token) == null){
+            System.out.println("Sin authorizacion");
+            return;
         }
 
-        Glucosa glucosa = new Glucosa();
-        glucosa.setNivelGlucosa(nivelGlucosa);
-        glucosa.setFechaMedicion(LocalDateTime.now());
-        glucosa.setUsuario(usuario);
 
-        return glucosaRepository.save(glucosa);
-    }*/
-
-    public void guardarRegistroGlucosa(String gmail, double nivelGlucosa) {
-        Users usuario = usersRepository.findByGmail(gmail);
+        Users usuario = usersRepository.findByGmail(glucosa.getGmail());
 
         if (usuario == null) {
             System.out.println("Usuario no encontrado");
         }else {
 
-            Glucosa glucosa;
-            glucosa = new Glucosa();
+            Glucosa glucosaNueva;
+            glucosaNueva = new Glucosa();
 
-            glucosa.setNivel_glucosa(nivelGlucosa);
-            glucosa.setFecha(LocalDateTime.now());
-            glucosa.setNotas("gjhgjjjjk");
-            glucosa.setUsuario(usuario);
+            glucosaNueva.setNivel_glucosa(glucosa.getNivelGlucosa());
+            glucosaNueva.setFecha(LocalDateTime.now());
+            glucosaNueva.setNotas(glucosa.getNotas());
+            glucosaNueva.setUsuario(usuario);
 
-            rglucosaRepository.save(glucosa);
+            rglucosaRepository.save(glucosaNueva);
 
         }
+    }
+
+    public List<Glucosa> obtenerRegistroGlucoas(String token) {
+
+        Users UsuarioLogueado = ObtenerGmailUser(token);
+
+        return rglucosaRepository.findAllByUsuario(UsuarioLogueado);
+    }
+    public Users ObtenerGmailUser(String token) {
+        if (jwtUtil.getKey(token) == null){
+            return null;
+        }
+        String gmailuser = jwtUtil.getValue(token);
+
+        System.out.println("EL IDE DEL USUARIO ES: " + gmailuser);
+
+        return usersRepository.findByGmail(gmailuser);
     }
 
 

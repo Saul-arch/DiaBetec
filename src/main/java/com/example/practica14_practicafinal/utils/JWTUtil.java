@@ -71,14 +71,22 @@ public class JWTUtil {
      * @param jwt
      * @return
      */
+
     public String getValue(String jwt) {
-        // This line will throw an exception if it is not a signed JWS (as
-        // expected)
-        Claims claims = Jwts.parser().setSigningKey(DatatypeConverter.parseBase64Binary(key))
-                .parseClaimsJws(jwt).getBody();
+        // Remover el prefijo "Bearer " si está presente
+        if (jwt.startsWith("Bearer ")) {
+            jwt = jwt.substring(7);
+        }
+
+        // Parsear el token JWT
+        Claims claims = Jwts.parser()
+                .setSigningKey(DatatypeConverter.parseBase64Binary(key))
+                .parseClaimsJws(jwt)
+                .getBody();
 
         return claims.getSubject();
     }
+
 
     /**
      * Method to validate and read the JWT
